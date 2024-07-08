@@ -4,3 +4,4 @@ track filter=lfs diff=lfs merge=lfs -text
 path/to/dapi_grey_tiff_v1/** filter=lfs diff=lfs merge=lfs -text
 C:\\Users\\felix\\Documents\\cellected_code\\Cellected_work\\cellpose_dapi_sox2\\dapi_grey_tiff_v1/** filter=lfs diff=lfs merge=lfs -text
 C:\\Users\\felix\\Documents\\cellected_code\\Cellected_work\\cellpose_dapi_sox2\\dapi_grey_tiff_v1 filter=lfs diff=lfs merge=lfs -text
+C:/Users/felix/Documents/cellected_code/Cellected_work/cellpose_dapi_sox2/dapi_grey_tiff_v1/** filter=lfs diff=lfs merge=lfs -text
