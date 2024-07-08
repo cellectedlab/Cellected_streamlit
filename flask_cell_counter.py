@@ -141,7 +141,7 @@ def predict_cell_counts(input_folders):
     total_cell_counts = []
     
     # Load your Cellpose model
-    model_path = r"models/CP_20240320_105807"
+    model_path = r"\\FS\fs\Felix\cellected_code\Cellected_work\flask_counter_cellpose\models\CP_20240320_105807"
     model = models.CellposeModel(pretrained_model=model_path)
     
     # Iterate through each input folder
