@@ -17,7 +17,6 @@ from cellpose import io, utils
 
 
 
-
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Function to split an image into subpanels
