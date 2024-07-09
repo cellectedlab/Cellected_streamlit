@@ -141,7 +141,7 @@ def predict_cell_counts(input_folders):
     total_cell_counts = []
     
     # Load your Cellpose model
-    model_path = r"\\FS\fs\Felix\cellected_code\Cellected_work\flask_counter_cellpose\models\CP_20240320_105807"
+    model_path = r"./CP_20240320_105807"
     model = models.CellposeModel(pretrained_model=model_path)
     
     # Iterate through each input folder
@@ -531,10 +531,11 @@ def plot_mean_cell_count_over_time(dataframe, days_to_predict=5):
 
 
 def main():
-    st.title("Cell Count Prediction App")
+    st.title("Flask Counting Prediction App")
 
     # Instructions for inputting folder path
     st.markdown("### Instructions:")
+    st.markdown("We need 4x magnification images and each day/timestamp corresponds to a unique folder containing only jpg images! ")
     st.markdown("1. Copy the folder path (right-click folder with photos and copy as path).")
     st.markdown("2. Paste the folder path in the text box below.")
     st.markdown("3. Click the 'Start Processing' button to begin.")

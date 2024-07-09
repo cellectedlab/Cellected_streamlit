@@ -284,7 +284,7 @@ def add_abnormalities_column(df):
 
 
 def main():
-    st.title('Data Processing App')
+    st.title('SNP Data Processing App')
 
     # Input field for unwanted sample IDs
     unwanted_sample_ids = st.text_input('Enter unwanted Sample IDs (comma-separated)')

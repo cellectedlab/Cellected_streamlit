@@ -11,8 +11,8 @@ from PIL import Image
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Load Cellpose models
-cellected_model_dapi = models.CellposeModel(pretrained_model=r'\\fs\fs\Felix\cellected_code\Cellected_work\cellpose_dapi_sox2\dapi_grey_tiff_v1')
-cellected_model_sox2 = models.CellposeModel(pretrained_model=r'\\fs\fs\Felix\cellected_code\Cellected_work\cellpose_dapi_sox2\sox2_grey_tiff_v1')
+cellected_model_dapi = models.CellposeModel(pretrained_model=r'./dapi_grey_tiff_v1')
+cellected_model_sox2 = models.CellposeModel(pretrained_model=r'./sox2_grey_tiff_v1')
 
 def process_images(file_triples, input_dir):
     # Initialize a list to store results
@@ -92,6 +92,8 @@ def main():
     st.sidebar.markdown("### Instructions:")
     st.sidebar.markdown("1. Browse and select the DAPI, FITC, and zOverlay files.")
     st.sidebar.markdown("2. Click the 'Process Images' button to start image processing.")
+    st.sidebar.markdown("3. The output will be overlayed images of the cell colonies.")
+    st.sidebar.markdown("Warning: This only works for Sox2 stained nuclei and not Oct4.")
 
     # File uploader for DAPI, FITC, and zOverlay images
     uploaded_files = st.sidebar.file_uploader("Upload DAPI, FITC, and zOverlay Images", type=["tif", "tiff", "jpg", "jpeg"], accept_multiple_files=True)
