@@ -5,12 +5,21 @@ import os
 
 
 
-
 # Function to read and clean data
 def read_and_clean_data(input_file_1, input_file_2):
     try:
-        # Read the first dataset with explicit tab delimiter
-        df1 = pd.read_csv(input_file_1, sep='\t')
+        # Define column names for df1
+        df1_columns = ['chr', 'start', 'end', 'cnv', 'name', 'n1', 'n2', 'confidence']
+
+        # Read the first dataset without headers and assign column names
+        df1 = pd.read_csv(input_file_1, sep='\t', header=None, names=df1_columns)
+
+        # Extract the sample_id from the 'name' column
+        df1['sample_id'] = df1['name'].apply(lambda x: re.search(r'([^/]+)\.txt$', x).group(1))
+
+        # Select and rename columns to match the desired format
+        df1 = df1[['chr', 'start', 'end', 'cnv', 'sample_id', 'confidence']]
+        df1 = df1.rename(columns={'confidence': 'value'})  # Rename 'confidence' to 'value' to match df2
 
         # Read the second dataset with explicit tab delimiter
         df2 = pd.read_csv(input_file_2, sep='\t')
@@ -34,11 +43,6 @@ def read_and_clean_data(input_file_1, input_file_2):
         # Select only the required columns in df2
         df2 = df2[['sample_id', 'chr', 'start', 'end', 'value']]
 
-        # Select only the required columns in df1
-        df1 = df1[['sample_id', 'chr', 'start', 'end', 'cnv']]
-        # Rename 'cnv' column to 'value' to match df2
-        df1 = df1.rename(columns={'cnv': 'value'})
-
         # Add a new column to distinguish between the sources
         df1['cnv_algorithm'] = 'penn_cnv'
         df2['cnv_algorithm'] = 'cnv_partition'  # or any other label that fits your context
@@ -51,8 +55,6 @@ def read_and_clean_data(input_file_1, input_file_2):
     
     except Exception as e:
         st.error(f"Error reading and cleaning data: {str(e)}")
-
-
 
 def merge_sort_filter_data(df1, df2):
     # Merge the datasets based on common columns
@@ -202,16 +204,14 @@ def main():
             # Drop columns with all NaN values
             filtered_df = filtered_df.dropna(axis=1, how='all')
 
-            # Drop specific columns ('Unnamed: 0' and the first column)
+            # Drop specific columns ('Unnamed: 0' and the first column) if they exist
             columns_to_drop = ['Unnamed: 0']
-            filtered_df = filtered_df.drop(columns=columns_to_drop)
+            for column in columns_to_drop:
+                if column in filtered_df.columns:
+                    filtered_df = filtered_df.drop(columns=[column])
 
             # Drop duplicate rows based on all columns
             filtered_df = filtered_df.drop_duplicates()
-
-            # Display filtered DataFrame
-            st.subheader('Filtered export dataframe:')
-            st.write(filtered_df)
 
         except Exception as e:
             st.error(f"Error processing data: {str(e)}")

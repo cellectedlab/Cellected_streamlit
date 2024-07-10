@@ -297,7 +297,6 @@ def main():
 
     # File uploaders (only for SNP data file)
     file_path = st.file_uploader('Upload SNP data file (CSV or TXT)', type=['csv', 'txt'])
-    gene_file_path = st.file_uploader('Upload gene file (CSV or TXT)', type=['csv', 'txt'])
 
     # Input fields for setting thresholds
     confidence_threshold = st.number_input('Enter Confidence Threshold', min_value=0, max_value=10000, value=100)
@@ -308,6 +307,7 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     # Define the relative paths
+    gene_file_path = os.path.join(script_dir, 'gene_list_genome_studio.txt')
     cancer_gene_file_path = os.path.join(script_dir, 'cancerGeneList.tsv')
     cytoband_file_path = os.path.join(script_dir, 'cytoband_positions_ncbi.csv')
 
