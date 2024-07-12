@@ -130,7 +130,6 @@ def process_images(images_by_date, model, show_outlines):
     
     return daily_summary, exact_times
 
-
 # Function to predict future value based on doubling time
 def predict_future_value(initial_mean, final_mean, initial_date, final_date, days_to_predict=1):
     """
@@ -157,7 +156,6 @@ def predict_future_value(initial_mean, final_mean, initial_date, final_date, day
     
     return future_dates, future_predictions
 
-
 # Main function to run Streamlit app
 def main():
     st.title("Cell Counter")
@@ -170,6 +168,9 @@ def main():
     show_outlines = st.checkbox("Show Outlines")
     st.markdown("If multiple images across multiple days are shown tick below (if not just proceed without ticking this box):")
     plot_and_predict = st.checkbox("Plot and Predict Scores")
+    days_to_predict = 1
+    if plot_and_predict:
+        days_to_predict = st.number_input("Number of days to predict", min_value=1, max_value=30, value=5)
     
     if uploaded_files:
         st.markdown("### Uploaded Images:")
@@ -217,7 +218,6 @@ def main():
                     initial_date = df_daily_summary['Date'].iloc[-2]
                     final_date = df_daily_summary['Date'].iloc[-1]
                     
-                    days_to_predict = 5  # Number of days to predict
                     future_dates, future_predictions = predict_future_value(initial_mean, final_mean, initial_date, final_date, days_to_predict)
                     
                     # Plot predicted values
